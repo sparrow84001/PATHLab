@@ -12,7 +12,7 @@
 	<div class="row-loginbox">
 		<div class="col-sm-7">
 		<h1>Login Here</h1>
-			<form method="post" action="logcode">
+			<form method="post" action="">
 			{% csrf_token %}
 				<div class="form-group">
 				<label for="exampleInputEmail1">Email address</label>
@@ -26,7 +26,7 @@
 				<br>
 				<button type="submit" class="btn btn-primary">Login</button>
 		  </form>
-		<a href="#">Create New Account</a>
+		<a href="{% url 'register_user' %}">Create New Account</a>
 		</div>
 	</div>
 	</div>
