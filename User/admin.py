@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import emp
+from .models import user_normal
 
 # Register your models here.
 
-admin.site.register(emp)
+admin.site.register(user_normal)

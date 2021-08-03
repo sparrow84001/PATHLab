@@ -1,7 +1,8 @@
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
-from .models import emp,user_normal
+from .models import user_normal
 from .forms import userREF
+from django.contrib.messages.storage import session
 
 # Create your views here.
 def login(request):
@@ -11,12 +12,13 @@ def logcode(request):
     if request.method=='POST':
         email=request.POST['email']
         pwd=request.POST['pwd']
-        #print(email,pwd) # test perpuse
-        obj=emp()
-        obj.exampleInputEmail1=email
-        obj.exampleInputPassword1=pwd
-        obj.save()
-        return render(request,'login.html')
+        obje=user_normal.objects.get(email=email)
+        if obje.password==pwd:
+            request.session['email']=email
+            request.session['username']=obje.username
+            return render(request,'home.html',{"username" : obje.username, "email":obje.email})
+        else:
+            return HttpResponse('<h1>Invalid Password</h1>')
 
 def Is_logged_in(request):
     return render(request,'home.html')
@@ -29,7 +31,6 @@ def register_view(request):
 
 def register_user(request):
     if request.method=='POST':
-        #print('super')
         username=request.POST['username']
         email=request.POST['email']
         pwd=request.POST['password']
